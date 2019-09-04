@@ -1,0 +1,7 @@
+persistence:
+  size: 16Gi
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 110m
