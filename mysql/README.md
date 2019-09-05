@@ -9,7 +9,27 @@ This chart bootstraps a single node MySQL deployment on a PCF (Pivotal Cloud Fou
 ## Prerequisites
 
 - PCF environment
-- ksm cli referred below is an alias configured to  `$KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD`
+- ksm cli referred below is an alias configured to  `$KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD`. 
+If you want to create the same alias for your environment, add the following function to your .bash_profile, .profile or .bashrc files:
+
+``` 
+export KSM_PATH=<The path where your ksm.darwin is located>
+export KSM_SERVER=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
+export KSM_USER=<change_by_your_ksm_user>
+export KSM_PASSWORD=<change_by_your_ksm_password>
+
+ksm ()
+{
+    if [ -n "$ZSH_VERSION" ]; then
+        emulate -L sh;
+    fi;
+    if [ "$1" == "" ]; then
+        $KSM_PATH/ksm.darwin --help;
+    else
+        $KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD;
+    fi
+}
+```
 
 
 ## Publishing the Marketplace Offer
