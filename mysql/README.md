@@ -130,7 +130,7 @@ Now lets deploy an app to CF and bind that to the new MySQL instance.
 - Create a temporary folder anywhere in your computer, for example:
 `mkdir ~/mytempfolder`
 - Download the spring-music [app sample](./app-sample/spring-music-app.tgz) to the temporary folder you just created
-- Execute the following commands decompress and deploy the app:
+- Execute the following commands to decompress and deploy the app:
 ```bash
 $ tar xvzf spring-music-app.tgz
 $ cf push
