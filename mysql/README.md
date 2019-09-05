@@ -38,10 +38,9 @@ To publish the marketplace offer:
 
 <pre><b>$ ksm offer save mysql-1.3.0.tgz</b></pre>
 
-The command publishes MySQL offer on PCF in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during 
-installation. The marketplace name and version will match the name and version defined in Chart.yaml file.
+The command publishes MySQL offer on PCF in the default configuration. The marketplace name and version will match the name and version defined in Chart.yaml file.
 
-Alternatively a <ksm>.yaml file can be defined with a different marketplace name and use that as input for `ksm offer save`:
+Alternatively a &lt;ksm&gt;.yaml file can be defined with a different marketplace name and used as input for `ksm offer save`:
 
 __custom-mysql.yaml__ sample
 ```
@@ -55,7 +54,7 @@ charts:
 <pre><b>$ ksm offer save custom-mysql.yaml mysql-1.3.0.tgz
 </b></pre>
 
-The current offers can be listed as following:k
+The current offers can be listed as following:
 
 <pre>
 <b>$ ksm offer list</b>
@@ -316,3 +315,10 @@ To remove the marketplace offer:
 <b>ksm offer delete mysql</b>
 </pre>
 
+## External References
+
+For more details and customizations for MySQL chart, see https://github.com/helm/charts/tree/master/stable/mysql
+
+For more details on ksm usage see http://to-do-link
+
+For other Pivotal documents see https://docs.pivotal.io/
