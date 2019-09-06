@@ -1,0 +1,8 @@
+marketplace-name: rabbitmq-with-external-monitoring
+charts:
+- chart: prometheus-operator
+  offered: false
+  scope: cluster
+- chart: rabbitmq
+  offered: true
+  scope: namespace

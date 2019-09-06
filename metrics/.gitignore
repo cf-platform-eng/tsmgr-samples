@@ -1,0 +1,6 @@
+exporter/envfile
+
+prometheus-opertor/charts
+
+rabbitmq-*.tgz
+prometheus-operator-*.tgz
