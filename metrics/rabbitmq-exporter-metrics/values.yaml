@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: cfplatformeng/rabbitmq-exporter-metrics
+  tag: latest
+  pullPolicy: Always
+
+influxdb:
+#  url: influx.example.com
+  port: 80
+  username: root
+  password: root
+
+# not configurable in the templates, using subchart so coded to release name
+# rabbit_metrics_host: rabbit.example.com

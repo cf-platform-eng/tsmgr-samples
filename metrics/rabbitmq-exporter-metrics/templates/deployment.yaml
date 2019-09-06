@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "rabbitmq-exporter-metrics.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "rabbitmq-exporter-metrics.name" . }}
+    helm.sh/chart: {{ include "rabbitmq-exporter-metrics.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "rabbitmq-exporter-metrics.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "rabbitmq-exporter-metrics.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: INFLUXDB_URL
+              value: "{{ .Values.influxdb.url }}"
+            - name: INFLUXDB_PORT
+              value: "{{ .Values.influxdb.port }}"
+            - name: INFLUXDB_USERNAME
+              value: "{{ .Values.influxdb.username }}"
+            - name: INFLUXDB_PASSWORD
+              value: "{{ .Values.influxdb.password }}"
+            - name: METRICS_HOST
+              value: http://{{ .Release.Name }}-rabbitmq
+            - name: INSTANCE_TAG
+              valueFrom:
+                  fieldRef:
+                      fieldPath: metadata.namespace
