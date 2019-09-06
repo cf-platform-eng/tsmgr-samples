@@ -1,10 +1,12 @@
-# MySQL
+# MySQL Operator
 
-[MySQL](https://MySQL.org) is one of the most popular database servers in the world. Notable users include Wikipedia, Facebook and Google.
+MySQL Operator enables bulletproof MySQL on Kubernetes. It manages all the necessary resources for deploying and managing a highly available MySQL cluster. It provides effortless backups, while keeping the cluster highly available.
+
+For more information on this chart see: https://github.com/presslabs/mysql-operator
 
 ## Introduction
 
-This chart bootstraps a single node MySQL deployment on a PCF (Pivotal Cloud Foundry).
+This documents shows how to use the MySQL operator offer to create a MySQL cluster.
 
 ## Prerequisites
 
@@ -31,63 +33,50 @@ ksm ()
 }
 ```
 
-
 ## Publishing the Marketplace Offer
 
 To publish the marketplace offer:
 
-<pre><b>$ ksm offer save mysql-1.3.0.tgz</b></pre>
+<pre><b>$ ksm offer save mysql-cluster.yaml mysql-operator-0.1.0+master.tgz mysql-1.3.0.tgz</b></pre>
 
-The command publishes MySQL offer on PCF in the default configuration. The marketplace name and version will match the name and version defined in Chart.yaml file.
-
-Alternatively a &lt;ksm&gt;.yaml file can be defined with a different marketplace name and used as input for `ksm offer save`:
-
-__custom-mysql.yaml__ sample
-```
-marketplace-name: custom-mysql
-charts:
-  - chart: mysql
-    offered: true
-    scope: namespace
-```
-
-<pre><b>$ ksm offer save custom-mysql.yaml mysql-1.3.0.tgz
-</b></pre>
+The command publishes mysql-cluster offer on PCF. The marketplace name is configured in the mysql-cluster.yaml (ksm.yaml definition).
 
 The current offers can be listed as following:
 
 <pre>
 <b>$ ksm offer list</b>
-MARKETPLACE NAME	INCLUDED CHARTS	VERSION	PLANS
-dokuwiki        	dokuwiki       	5.1.2  	[default]
-mysql           	mysql          	1.3.0  	[medium small]
+MARKETPLACE NAME	INCLUDED CHARTS	VERSION     	PLANS
+mysql-cluster   	mysql          	1.3.0       	[medium small]
+-               	mysql-operator 	0.1.0+master
+mysql           	mysql          	1.3.0       	[medium small]
 </pre>
 
 ## Enabling CF access 
 
 The marketplace offer access is not available by default via cf command. You can verify that by calling the follow commands. 
-Notice that mysql is not available at marketplace, even though it is listed by service-access (with access=none):
+Notice that mysql-cluster is not available at marketplace, even though it is listed by service-access (with access=none):
 
 <pre>
 <b>$ cf marketplace</b>
 Getting services from marketplace in org ksm-dev / space dev as admin...
 OK
-service               plans                                                  description                                                                                                                                                                                                                           broker
-dokuwiki              default                                                DokuWiki is a standards-compliant, simple to use wiki optimized for creating documentation. It is targeted at developer teams, workgroups, and small companies. All data is stored in plain text files, so no database is required.   kubernetes-service-manager
+
+service               plans                                                  description                                                                         broker
+
+# That's because the service access is set to none...
 
 <b>$ cf service-access</b>
 Getting service access as admin...
 broker: kubernetes-service-manager
-   service    plan      access   orgs
-   dokuwiki   default   all
-<b>   mysql      medium    none
-   mysql      small     none</b>
+   service            plan      access   orgs
+<b>   mysql-cluster      medium    none
+   mysql-cluster      small     none</b>
 </pre>
 
 In order to enable the access, use the following command:
 
 <pre>
-<b>$ cf enable-service-access mysql</b>
+<b>$ cf enable-service-access mysql-cluster</b>
 Enabling access to all plans of service mysql for all orgs as admin...
 OK
 
@@ -95,10 +84,8 @@ OK
 Getting services from marketplace in org ksm-dev / space dev as admin...
 OK
 
-service               plans                                                  description                                                                                                                                                                                                                           broker
-dokuwiki              default                                                DokuWiki is a standards-compliant, simple to use wiki optimized for creating documentation. It is targeted at developer teams, workgroups, and small companies. All data is stored in plain text files, so no database is required.   kubernetes-service-manager
-<b>mysql                 small, medium                                          Fast, reliable, scalable, and easy to use open-source relational database system.                                                                                                                                                     kubernetes-service-manager</b>
-</pre>
+service           plans           description                                                                         broker
+<b>mysql-cluster     medium, small   Fast, reliable, scalable, and easy to use open-source relational database system.   kubernetes-service-manager</b></pre>
  
 ## Creating an instance
 
@@ -114,22 +101,22 @@ No services found
 Now, let's create a new instance. We can also list the new cf and kubernetes services
 
 <pre>
-<b>$ cf create-service mysql small mysql1</b> 
+<b>$ cf create-service mysql-cluster small mysql-cluster1</b> 
 
 <b>$ cf services</b>
 Getting services in org ksm-dev / space dev as admin...
 
-name     service   plan    bound apps   last operation       broker
-<b>mysql1   mysql     small                create in progress   kubernetes-service-manager</b>
+name                service           plan    bound apps   last operation       broker<b>
+mysql-cluster1      mysql-cluster     small                create succeeded     kubernetes-service-manager</b>
 </pre>
 
-## Binding an app to mysql instance 
+## Binding an app to mysql-cluster instance
 
-Now lets deploy an app to CF and bind that to the new MySQL instance. 
+Now lets deploy an app to CF and bind that to the new MySQL cluster instance. 
 
 - Create a temporary folder anywhere in your computer, for example:
 `mkdir ~/mytempfolder`
-- Download the spring-music [app sample](./app-sample/spring-music-app.tgz) to the temporary folder you just created
+- Download the spring-music [app sample](../mysql/app-sample/spring-music-app.tgz) to the temporary folder you just created
 - Execute the following commands to decompress and deploy the app:
 ```bash
 $ tar xvzf spring-music-app.tgz
@@ -158,13 +145,13 @@ memory usage:   1024M
 #0   running   2019-09-05T20:35:29Z   0.4%   219.8M of 1G   173.1M of 1G
 </pre>
 
-![Before binding](./app-sample/before-binding.png)
+![Before binding](../mysql/app-sample/before-binding.png)
 
-Let's bind this app to the MySQL database instance and restage the app:
+Let's bind this app to the MySQL cluster and restage the app:
 
 <pre>
-<b>$ cf bind-service spring-music mysql1</b>
-Binding service mysql1 to app spring-music in org ksm-dev / space dev as admin...
+<b>$ cf bind-service spring-music mysql-cluster1</b>
+Binding service mysql-cluster1 to app spring-music in org ksm-dev / space dev as admin...
 OK
 
 TIP: Use 'cf restage spring-music' to ensure your env variable changes take effect
@@ -209,7 +196,7 @@ start command:   JAVA_OPTS="-agentpath:$PWD/.java-buildpack/open_jdk_jre/bin/jvm
 
 Now we can see the app using MySQL:
 
-![After binding](./app-sample/after-binding.png)
+![After binding](./img/after-binding.png)
 
 ## [Optional] See the data in MySQL instance
 
@@ -221,14 +208,14 @@ To do that:
 - Create a service key for the MySQL instance:
 
 <pre>
-<b>$ cf create-service-key mysql1 mysql1-servicekey</b>
+<b>$ cf create-service-key mysql-cluster1 mysql-cluster1-servicekey</b>
 </pre>
 
 - Verify the hostname, user and password in the service key data
 
 <pre>
-<b>$ cf service-key mysql1 mysql1-servicekey</b>
-Getting key mysql1-servicekey for service instance mysql1 as admin...
+<b>$ cf service-key mysql-cluster1 mysql-cluster1-servicekey</b>
+Getting key mysql-cluster1-servicekey for service instance mysql-cluster1 as admin...
 
 {
  "hostname": "some_ip_address",
@@ -312,7 +299,7 @@ Database changed
 To remove the marketplace offer:
 
 <pre>
-<b>ksm offer delete mysql</b>
+<b>ksm offer delete mysql-cluster</b>
 </pre>
 
 ## External References

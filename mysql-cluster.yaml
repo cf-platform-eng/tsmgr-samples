@@ -1,0 +1,8 @@
+marketplace-name: mysql-cluster
+charts:
+  - chart: mysql-operator
+    offered: false
+    scope: cluster
+  - chart: mysql
+    offered: true
+    scope: namespace
