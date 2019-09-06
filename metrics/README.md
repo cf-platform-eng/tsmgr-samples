@@ -124,9 +124,9 @@ done
 
 ### Build the Exporter
 
-[The exporter](metrics/exporter) includes a docker image and the shim that exports to the metrics sink.
+[The exporter](exporter) includes a docker image and the shim that exports to the metrics sink.
 The example uses the image from our registry, so there's no need to build the image. To fully view
-how the demo works, take a look at [exporter.py](metrics/exporter/exporter.py) to see how
+how the demo works, take a look at [exporter.py](exporter/exporter.py) to see how
 it's building, tagging, and pushing that image.  
 
 ### Offer RabbitMQ to CF marketplace
@@ -156,7 +156,7 @@ Once Rabbit comes up, the exporter will start reporting to InfluxDB.
 
 #### Demo
 
-To see the metrics in action, import sample graph from [status_dashboard.json](metrics/docs/status_dashboard.json) 
+To see the metrics in action, import sample graph from [status_dashboard.json](docs/status_dashboard.json) 
 
 To bring rabbitMQ down and see something interesting in the graph:
 
