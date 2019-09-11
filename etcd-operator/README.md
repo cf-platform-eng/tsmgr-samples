@@ -18,7 +18,7 @@ API reference [here](https://github.com/etcd-io/etcd/blob/master/Documentation/v
 
 ## Prerequisites
 
-- PCF environment
+- PCF environment with KSM installed and configured.
 - __Suggested:__ PV provisioner support in the underlying infrastructure to support backups
 - ksm cli referred below is an alias configured to  `$KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD`. 
 If you want to create the same alias for your environment, add the following function to your .bash_profile, .profile or .bashrc files:

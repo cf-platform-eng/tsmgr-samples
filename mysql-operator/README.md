@@ -10,7 +10,7 @@ This documents shows how to use the MySQL operator offer to create a MySQL clust
 
 ## Prerequisites
 
-- PCF environment
+- PCF environment with KSM installed and configured.
 - ksm cli referred below is an alias configured to  `$KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD`. 
 If you want to create the same alias for your environment, add the following function to your .bash_profile, .profile or .bashrc files:
 
