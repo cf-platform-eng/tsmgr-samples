@@ -86,7 +86,7 @@ And then configure DNS to point to nginx's external IP address.
 The following overrides a few of the chart's default values using `--set`
 
 ```bash
-helm install ~/workspace/charts/stable/influxdb \ 
+helm install stable/influxdb \ 
     --set config.auth_enabled=true \
     --set setDefaultUser.enabled=true \
     --set setDefaultUser.user.password=<password> \
@@ -99,7 +99,7 @@ helm install ~/workspace/charts/stable/influxdb \
 The following overrides a few of the chart's default values using `--set`
 
 ```bash
-helm install ~/workspace/charts/stable/grafana \
+helm install stable/grafana \
     --set service.type=LoadBalancer \
     --set adminPassword=<password> \
     --set ingress.enabled=true \
