@@ -125,89 +125,10 @@ name     service   plan    bound apps   last operation       broker
 
 ## Binding an app to mysql instance 
 
-Now lets deploy an app to CF and bind that to the new MySQL instance. 
-
-- Create a temporary folder anywhere in your computer, for example:
-`mkdir ~/mytempfolder`
-- Download the spring-music [app sample](./app-sample/spring-music-app.tgz) to the temporary folder you just created
-- Execute the following commands to decompress and deploy the app:
-```bash
-$ tar xvzf spring-music-app.tgz
-$ cf push
-```
-- Execute the following command to verify the app http endpoint, and visualize that in the browser
-<pre>
-<b>$ cf app spring-music</b>
-Showing health and status for app spring-music in org ksm-dev / space dev as admin...
-
-name:              spring-music
-requested state:   started
-<b>routes:            spring-music-interested-badger.apps.<?>.cf-app.com</b>
-last uploaded:     Thu 05 Sep 15:34:57 CDT 2019
-stack:             cflinuxfs3
-buildpacks:        client-certificate-mapper=1.8.0_RELEASE
-                   container-security-provider=1.16.0_RELEASE
-                   java-buildpack=v4.18-offline-https://github.com/cloudfoundry/java-buildpack.git#a0df7d0
-                   java-main java-opts java-security
-                   jvmkill-agent=1.16.0_RELEASE open-jdk-...
-
-type:           web
-instances:      1/1
-memory usage:   1024M
-     state     since                  cpu    memory         disk           details
-#0   running   2019-09-05T20:35:29Z   0.4%   219.8M of 1G   173.1M of 1G
-</pre>
-
-![Before binding](./app-sample/before-binding.png)
-
-Let's bind this app to the MySQL database instance and restage the app:
-
-<pre>
-<b>$ cf bind-service spring-music mysql1</b>
-Binding service mysql1 to app spring-music in org ksm-dev / space dev as admin...
-OK
-
-TIP: Use 'cf restage spring-music' to ensure your env variable changes take effect
-
-<b>$ cf restage spring-music</b>
-This action will cause app downtime.
-
-Restaging app spring-music in org ksm-dev / space dev as admin...
-
-Staging app and tracing logs...
-   Downloading nodejs-buildpack-jharper...
-   .
-   .
-   .
-   Cell 34a86296-cf9e-4c2f-a839-14f67f9cd306 successfully destroyed container for instance 3738070a-d9f0-4193-a15c-b0221af7f1f3
-
-Waiting for app to start...
-
-name:              spring-music
-requested state:   started
-routes:            spring-music-interested-badger.<?>.cf-app.com
-last uploaded:     Thu 05 Sep 16:05:54 CDT 2019
-stack:             cflinuxfs3
-buildpacks:        client-certificate-mapper=1.8.0_RELEASE container-security-provider=1.16.0_RELEASE
-                   java-buildpack=v4.18-offline-https://github.com/cloudfoundry/java-buildpack.git#a0df7d0 java-main java-opts java-security
-                   jvmkill-agent=1.16.0_RELEASE open-jdk-...
-
-type:            web
-instances:       1/1
-memory usage:    1024M
-start command:   JAVA_OPTS="-agentpath:$PWD/.java-buildpack/open_jdk_jre/bin/jvmkill-1.16.0_RELEASE=printHeapHistogram=1 -Djava.io.tmpdir=$TMPDIR
-                 -XX:ActiveProcessorCount=$(nproc)
-                 -Djava.ext.dirs=$PWD/.java-buildpack/container_security_provider:$PWD/.java-buildpack/open_jdk_jre/lib/ext
-                 -Djava.security.properties=$PWD/.java-buildpack/java_security/java.security $JAVA_OPTS" &&
-                 CALCULATED_MEMORY=$($PWD/.java-buildpack/open_jdk_jre/bin/java-buildpack-memory-calculator-3.13.0_RELEASE -totMemory=$MEMORY_LIMIT
-                 -loadedClasses=20868 -poolType=metaspace -stackThreads=250 -vmOptions="$JAVA_OPTS") && echo JVM Memory Configuration:
-                 $CALCULATED_MEMORY && JAVA_OPTS="$JAVA_OPTS $CALCULATED_MEMORY" && MALLOC_ARENA_MAX=2 SERVER_PORT=$PORT eval exec
-                 $PWD/.java-buildpack/open_jdk_jre/bin/java $JAVA_OPTS -cp $PWD/. org.springframework.boot.loader.JarLauncher
-     state     since                  cpu      memory       disk           details
-#0   running   2019-09-05T21:06:24Z   120.1%   151M of 1G   173.1M of 1G
-</pre>
-
-Now we can see the app using MySQL:
+Please follow the instructions at https://github.com/cloudfoundry-samples/spring-music to build, deploy and bind the 
+spring-music app to mysql database.
+ 
+You should visualize the bindind details in spring-music app after binding process as following:
 
 ![After binding](./app-sample/after-binding.png)
 
@@ -323,4 +244,3 @@ For more details on ksm usage see http://to-do-link
 
 For other Pivotal documents see https://docs.pivotal.io/
 
-To know more about Spring Music app see https://github.com/cloudfoundry-samples/spring-music
