@@ -22,7 +22,6 @@ chose InfluxDB and Grafana arbitrarily.
 * PCF environment with KSM installed and configured.
 * ksm cli
 
-
 ### Setup
 
 The following steps are outlined below:
@@ -34,7 +33,11 @@ The following steps are outlined below:
 #### Bootstrap Helm
 
 This solution uses Helm to setup the off-platform metrics sink. See
-the [Helm docs](https://helm.sh/) for a detailed explaination of this tool.
+the [Helm docs](https://helm.sh/) for a detailed explanation of this tool.
+
+The off-platform metrics sink isn't park of KSM itself and is intended to represent
+a team's existing monitoring solution. We chose Kubernetes and Helm for deployment, but
+the off-platform sink could be anything.
 
 ```bash
 gcloud container clusters get-credentials <my-cluster> --zone=us-central1-a --project=<my-project>
@@ -69,7 +72,7 @@ To make InfluxDB and Grafana accessible to the workloads we're deploying (which 
 install an [Ingress Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 
 ```bash
-helm install ~/workspace/charts/stable/nginx-ingress
+helm install stable/nginx-ingress
 ```
 
 ```bash
@@ -83,7 +86,7 @@ And then configure DNS to point to nginx's external IP address.
 The following overrides a few of the chart's default values using `--set`
 
 ```bash
-helm install ~/workspace/charts/stable/influxdb \ 
+helm install stable/influxdb \ 
     --set config.auth_enabled=true \
     --set setDefaultUser.enabled=true \
     --set setDefaultUser.user.password=<password> \
@@ -96,7 +99,7 @@ helm install ~/workspace/charts/stable/influxdb \
 The following overrides a few of the chart's default values using `--set`
 
 ```bash
-helm install ~/workspace/charts/stable/grafana \
+helm install stable/grafana \
     --set service.type=LoadBalancer \
     --set adminPassword=<password> \
     --set ingress.enabled=true \
