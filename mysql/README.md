@@ -12,7 +12,7 @@ This chart bootstraps a single node MySQL deployment on a PCF (Pivotal Cloud Fou
 - ksm cli referred below is an alias configured to  `$KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD`. 
 If you want to create the same alias for your environment, add the following function to your .bash_profile, .profile or .bashrc files:
 
-``` 
+```
 export KSM_PATH=<The path where your ksm.darwin is located>
 export KSM_SERVER=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
 export KSM_USER=<change_by_your_ksm_user>
@@ -47,6 +47,7 @@ __custom-mysql.yaml__ sample
 marketplace-name: custom-mysql
 charts:
   - chart: mysql
+    version: 1.3.0
     offered: true
     scope: namespace
 ```

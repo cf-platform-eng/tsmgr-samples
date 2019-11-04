@@ -1,8 +1,10 @@
 marketplace-name: rabbitmq-with-external-monitoring
 charts:
 - chart: prometheus-operator
+  version: 6.8.1
   offered: false
   scope: cluster
 - chart: rabbitmq
+  version: 6.4.4
   offered: true
   scope: namespace
