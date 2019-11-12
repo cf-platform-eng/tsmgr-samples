@@ -1,0 +1,6 @@
+- name: "ephemeral"
+  description: "rabbit without persistent disk"
+  file: "ephemeral.yaml"
+- name: "persistent"
+  description: "rabbit with a data volume"
+  file: "persistent.yaml"
