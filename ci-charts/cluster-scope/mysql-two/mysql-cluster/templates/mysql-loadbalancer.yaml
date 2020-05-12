@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service-lb
+spec:
+  selector:
+    app.kubernetes.io/managed-by: mysql.presslabs.org
+    app.kubernetes.io/name: mysql
+    mysql.presslabs.org/cluster: {{ template "mysql-cluster.name" . }}
+    role: master
+  type: LoadBalancer
+  ports:
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP

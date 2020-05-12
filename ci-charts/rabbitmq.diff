@@ -1,0 +1,58 @@
+diff --git a/stable/rabbitmq/.helmignore b/sample-charts/rabbitmq/.helmignore
+index 6b8710a..1689a35 100644
+--- a/stable/rabbitmq/.helmignore
++++ b/sample-charts/rabbitmq/.helmignore
+@@ -1 +1,3 @@
+ .git
++
++images
+diff --git a/sample-charts/rabbitmq/plans/ephemeral.yaml b/sample-charts/rabbitmq/plans/ephemeral.yaml
+new file mode 100644
+index 0000000..4d6af8b
+--- /dev/null
++++ b/sample-charts/rabbitmq/plans/ephemeral.yaml
+@@ -0,0 +1,2 @@
++persistence:
++  enabled: false
+diff --git a/sample-charts/rabbitmq/plans/persistent.yaml b/sample-charts/rabbitmq/plans/persistent.yaml
+new file mode 100644
+index 0000000..a434bf0
+--- /dev/null
++++ b/sample-charts/rabbitmq/plans/persistent.yaml
+@@ -0,0 +1,2 @@
++persistence:
++  enabled: true
+diff --git a/sample-charts/rabbitmq/plans.yaml b/sample-charts/rabbitmq/plans.yaml
+new file mode 100755
+index 0000000..2c3ff07
+--- /dev/null
++++ b/sample-charts/rabbitmq/plans.yaml
+@@ -0,0 +1,6 @@
++- name: "ephemeral"
++  description: "rabbit without persistent disk"
++  file: "ephemeral.yaml"
++- name: "persistent"
++  description: "rabbit with a data volume"
++  file: "persistent.yaml"
+diff --git a/stable/rabbitmq/values.yaml b/sample-charts/rabbitmq/values.yaml
+index 2b04dfc..eac875f 100644
+--- a/stable/rabbitmq/values.yaml
++++ b/sample-charts/rabbitmq/values.yaml
+@@ -36,7 +36,7 @@ rabbitmq:
+   ## RabbitMQ application password
+   ## ref: https://github.com/bitnami/bitnami-docker-rabbitmq/blob/master/README.md#creating-a-database-user-on-first-run
+   ##
+-  # password:
++  password: polka5776_Chosen
+
+   ## Erlang cookie to determine whether different nodes are allowed to communicate with each other
+   ## ref: https://github.com/bitnami/bitnami-docker-rabbitmq#environment-variables
+@@ -83,7 +83,7 @@ rabbitmq:
+       loopback_users.guest = false
+
+ ## Kubernetes service type
+-serviceType: ClusterIP
++serviceType: LoadBalancer
+
+ persistence:
+   ## this enables PVC templates that will create one per pod

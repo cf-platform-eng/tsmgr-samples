@@ -1,0 +1,3 @@
+- name: "small"
+  description: "small, single node plan for grafana"
+  file: "small.yaml"

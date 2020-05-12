@@ -1,0 +1,52 @@
+diff --git a/sample-charts/grafana/.helmignore b/sample-charts/grafana/.helmignore
+new file mode 100644
+index 0000000..5e798fa
+--- /dev/null
++++ b/sample-charts/grafana/.helmignore
+@@ -0,0 +1 @@
++images
+\ No newline at end of file
+diff --git a/sample-charts/grafana/plans/small.yaml b/sample-charts/grafana/plans/small.yaml
+new file mode 100644
+index 0000000..d5716a7
+--- /dev/null
++++ b/sample-charts/grafana/plans/small.yaml
+@@ -0,0 +1,7 @@
++resources:
++  limits:
++    cpu: 100m
++    memory: 128Mi
++  requests:
++    cpu: 100m
++    memory: 128Mi
+diff --git a/sample-charts/grafana/plans.yaml b/sample-charts/grafana/plans.yaml
+new file mode 100644
+index 0000000..5e0bafb
+--- /dev/null
++++ b/sample-charts/grafana/plans.yaml
+@@ -0,0 +1,3 @@
++- name: "small"
++  description: "small, single node plan for grafana"
++  file: "small.yaml"
+diff --git a/stable/grafana/values.yaml b/sample-charts/grafana/values.yaml
+index 2f9ba4f..7e647cc 100644
+--- a/stable/grafana/values.yaml
++++ b/sample-charts/grafana/values.yaml
+@@ -37,7 +37,7 @@ downloadDashboardsImage:
+ ## ref: http://kubernetes.io/docs/user-guide/services/
+ ##
+ service:
+-  type: ClusterIP
++  type: LoadBalancer
+   port: 80
+   annotations: {}
+   labels: {}
+@@ -93,7 +93,7 @@ persistence:
+   # existingClaim:
+
+ adminUser: admin
+-# adminPassword: strongpassword
++adminPassword: polka5776_Chosen
+
+ ## Use an alternate scheduler, e.g. "stork".
+ ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/

@@ -1,0 +1,4 @@
+- name: "default"
+  description: "default plan for etcd operator"
+  file: "default.yaml"
+

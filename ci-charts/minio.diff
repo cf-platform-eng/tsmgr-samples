@@ -1,0 +1,37 @@
+diff --git a/stable/minio/.helmignore b/sample-charts/minio/.helmignore
+index f0c1319..5b057b2 100644
+--- a/stable/minio/.helmignore
++++ b/sample-charts/minio/.helmignore
+@@ -19,3 +19,5 @@
+ .project
+ .idea/
+ *.tmproj
++
++images
+diff --git a/sample-charts/minio/plans/default.yaml b/sample-charts/minio/plans/default.yaml
+new file mode 100644
+index 0000000..e69de29
+diff --git a/sample-charts/minio/plans.yaml b/sample-charts/minio/plans.yaml
+new file mode 100644
+index 0000000..a83c73e
+--- /dev/null
++++ b/sample-charts/minio/plans.yaml
+@@ -0,0 +1,4 @@
++- name: "default"
++  description: "default plan for minio"
++  file: "default.yaml"
++
+diff --git a/stable/minio/values.yaml b/sample-charts/minio/values.yaml
+index 9c93550..eed2397 100644
+--- a/stable/minio/values.yaml
++++ b/sample-charts/minio/values.yaml
+@@ -68,7 +68,7 @@ subPath: ""
+ ##
+
+ service:
+-  type: ClusterIP
++  type: LoadBalancer
+   clusterIP: None
+   port: 9000
+   # nodePort: 31311
+

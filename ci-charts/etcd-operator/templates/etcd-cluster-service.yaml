@@ -1,0 +1,20 @@
+{{- if .Values.customResources.createEtcdClusterCRD }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.etcdCluster.name }}-lb"
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  ports:
+  - name: etcd-cluster-port
+    port: 2379
+    protocol: TCP
+    targetPort: 2379
+  selector:
+    etcd_cluster: {{ .Values.etcdCluster.name }}
+  type: LoadBalancer
+{{- end }}

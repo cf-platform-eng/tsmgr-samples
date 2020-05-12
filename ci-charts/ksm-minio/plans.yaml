@@ -1,0 +1,4 @@
+- name: "default"
+  description: "default plan for minio"
+  file: "default.yaml"
+

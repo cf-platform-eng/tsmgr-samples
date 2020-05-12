@@ -1,0 +1,10 @@
+marketplace-name: mysql-combined-offer
+charts:
+  - chart: mysql-combined
+    version: 0.3.2
+    offered: false
+    scope: cluster
+  - chart: mysql-combined
+    version: 0.3.2
+    offered: true
+    scope: namespace
