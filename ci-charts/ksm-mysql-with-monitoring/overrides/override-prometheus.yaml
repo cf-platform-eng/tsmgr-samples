@@ -1,0 +1,4 @@
+alertmanager:
+  enabled: false
+persistentVolume:
+  enabled: false
