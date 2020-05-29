@@ -36,22 +36,23 @@ ksm ()
 
 To publish the marketplace offer:
 
-<pre><b>$ ksm offer save mysql-1.3.0.tgz</b></pre>
+<pre><b>$ ksm offer save mysql/ksm mysql-1.3.0.tgz</b></pre>
 
 The command publishes MySQL offer on PCF in the default configuration. The marketplace name and version will match the name and version defined in Chart.yaml file.
 
-Alternatively a &lt;ksm&gt;.yaml file can be defined with a different marketplace name and used as input for `ksm offer save`:
+Alternatively a &lt;ksm&gt;.yaml file can be defined in the ksm directory with a different marketplace name and used as input for `ksm offer save`:
 
-__custom-mysql.yaml__ sample
+__mysql/ksm/custom-mysql.yaml__ sample
 ```
 marketplace-name: custom-mysql
 charts:
   - chart: mysql
     offered: true
     scope: namespace
+    version: 1.3.0
 ```
 
-<pre><b>$ ksm offer save custom-mysql.yaml mysql-1.3.0.tgz
+<pre><b>$ ksm offer save mysql/ksm mysql-1.3.0.tgz
 </b></pre>
 
 The current offers can be listed as following:
