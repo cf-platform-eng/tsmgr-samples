@@ -31,12 +31,17 @@ ksm ()
 }
 ```
 
+- Kubernetes cluster registered with KSM and set as default
+```bash
+ksm cluster register my-cluster-name my-cluster-creds-file.yaml
+ksm cluster set-default my-cluster-name
+```
 
 ## Publishing the Marketplace Offer
 
 To publish the marketplace offer:
 
-<pre><b>$ ksm offer save mysql/ksm mysql-1.3.0.tgz</b></pre>
+<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.3.0.tgz</b></pre>
 
 The command publishes MySQL offer on PCF in the default configuration. The marketplace name and version will match the name and version defined in Chart.yaml file.
 
@@ -52,7 +57,7 @@ charts:
     version: 1.3.0
 ```
 
-<pre><b>$ ksm offer save mysql/ksm mysql-1.3.0.tgz
+<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.3.0.tgz
 </b></pre>
 
 The current offers can be listed as following:

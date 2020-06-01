@@ -32,12 +32,17 @@ ksm ()
     fi
 }
 ```
+- Kubernetes cluster registered with KSM and set as default
+```bash
+ksm cluster register my-cluster-name my-cluster-creds-file.yaml
+ksm cluster set-default my-cluster-name
+```
 
 ## Publishing the Marketplace Offer
 
 To publish the marketplace offer:
 
-<pre><b>$ ksm offer save mysql-cluster.yaml mysql-operator-0.1.0+master.tgz mysql-1.3.0.tgz</b></pre>
+<pre><b>$ ksm offer save mysql-operator/ksm mysql-operator/mysql-operator-0.1.0+master.tgz mysql-operator/mysql-1.3.0.tgz</b></pre>
 
 The command publishes mysql-cluster offer on PCF. The marketplace name is configured in the mysql-cluster.yaml (ksm.yaml definition).
 
@@ -85,7 +90,7 @@ Getting services from marketplace in org ksm-dev / space dev as admin...
 OK
 
 service           plans           description                                                                         broker
-<b>mysql-cluster     medium, small   Fast, reliable, scalable, and easy to use open-source relational database system.   kubernetes-service-manager</b></pre>
+<b>mysql-cluster     default         Fast, reliable, scalable, and easy to use open-source relational database system.   kubernetes-service-manager</b></pre>
  
 ## Creating an instance
 
@@ -101,7 +106,7 @@ No services found
 Now, let's create a new instance. We can also list the new cf and kubernetes services
 
 <pre>
-<b>$ cf create-service mysql-cluster small mysql-cluster1</b> 
+<b>$ cf create-service mysql-cluster default mysql-cluster1</b> 
 
 <b>$ cf services</b>
 Getting services in org ksm-dev / space dev as admin...

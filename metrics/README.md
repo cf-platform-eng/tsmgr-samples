@@ -139,7 +139,7 @@ the custom exporter chart and adds it as a subschart of Rabbit.
 
 ```bash
 ./package.sh
-ksm offer save ksm.yaml prometheus-operator-6.8.1.tgz rabbitmq-6.4.4.tgz
+ksm offer save ksm prometheus-operator-6.8.1.tgz rabbitmq-6.4.4.tgz
 ksm offer list
 ```
 
