@@ -1,3 +1,0 @@
-- name: "my-default"
-  description: "Create a mysql instance"
-  file: "my-default.yaml"
