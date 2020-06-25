@@ -1,0 +1,10 @@
+marketplace-name: mysql-operator
+charts:
+  - chart: mysql-operator
+    version: 0.1.1+master
+    offered: false
+    scope: cluster
+  - chart: mysql-cluster
+    version: 0.2.0
+    offered: true
+    scope: namespace
