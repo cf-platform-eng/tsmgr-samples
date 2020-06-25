@@ -1,9 +1,0 @@
-dependencies:
-  - name: mysql-operator
-    version: ">=0.0.1"
-    repository: file://./charts/mysql-operator
-    condition: operator.enabled
-  - name: mysql-instance
-    version: ">=0.0.1"
-    repository: file://./charts/mysql-instance
-    condition: instance.enabled
