@@ -1,0 +1,12 @@
+template: |
+  local filterfunc(j) = std.length(std.findSubstr("mysql-cluster-db", j.name)) > 0;
+  local s1 = std.filter(filterfunc, $.services);
+  {
+    hostname: s1[0].status.loadBalancer.ingress[0].ip,
+    name: s1[0].name,
+    jdbcUrl: "jdbc:mysql://" + self.hostname + "/mydb?user=" + self.username + "&password=" + self.password + "&useSSL=false",
+    uri: "mysql://" + self.username + ":" + self.password + "@" + self.hostname + ":" + self.port + "/mydb?reconnect=true",
+    password: $.secrets[0].data['ROOT_PASSWORD'],
+    port: 3306,
+    username: "root"
+  }

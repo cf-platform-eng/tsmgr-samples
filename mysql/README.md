@@ -43,7 +43,7 @@ To publish the marketplace offer:
 
 <pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.3.0.tgz</b></pre>
 
-The command publishes MySQL offer on PCF in the default configuration. The marketplace name and version will match the name and version defined in Chart.yaml file.
+The command publishes MySQL offer on PCF. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
 
 Alternatively a &lt;ksm&gt;.yaml file can be defined in the ksm directory with a different marketplace name and used as input for `ksm offer save`:
 

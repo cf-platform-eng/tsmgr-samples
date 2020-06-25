@@ -100,20 +100,18 @@ into each cluster where Developers may provision `mysql-cluster` instances.
 
 To publish the marketplace offer:
 
-<pre><b>$ ksm offer save ksm/ mysql-operator-0.1.1+master.tgz mysql-cluster-0.2.0.tgz 
+```bash
+$ ksm offer save ksm mysql-operator-0.1.1+master.tgz mysql-cluster-0.2.0.tgz
+```
 
-The command publishes MySQL Operator offer on PCF in the default configuration. The marketplace name and version will match the name and version defined in ksm.yaml file.
-
-<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.3.0.tgz
-</b></pre>
+The command publishes MySQL Operator offer on PCF. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
 
 The current offers can be listed as following:
-
 <pre>
 <b>$ ksm offer list</b>
-MARKETPLACE NAME	INCLUDED CHARTS	VERSION	PLANS
-dokuwiki        	dokuwiki       	5.1.2  	[default]
-mysql           	mysql          	1.3.0  	[medium small]
+MARKETPLACE NAME	INCLUDED CHARTS	VERSION	        PLANS
+mysql-operator  	mysql-cluster  	0.2.0       	[default]
+-               	mysql-operator 	0.1.1+master
 </pre>
 
 ## Enabling CF access 
@@ -121,60 +119,58 @@ mysql           	mysql          	1.3.0  	[medium small]
 The marketplace offer access is not available by default via cf command. You can verify that by calling the follow commands. 
 Notice that mysql is not available at marketplace, even though it is listed by service-access (with access=none):
 
-<pre>
-<b>$ cf marketplace</b>
+```bash
+$ cf marketplace
 Getting services from marketplace in org ksm-dev / space dev as admin...
 OK
-service               plans                                                  description                                                                                                                                                                                                                           broker
-dokuwiki              default                                                DokuWiki is a standards-compliant, simple to use wiki optimized for creating documentation. It is targeted at developer teams, workgroups, and small companies. All data is stored in plain text files, so no database is required.   kubernetes-service-manager
+service               plans                                                  description   
 
-<b>$ cf service-access</b>
+$ cf service-access
 Getting service access as admin...
-broker: kubernetes-service-manager
-   service    plan      access   orgs
-   dokuwiki   default   all
-<b>   mysql      medium    none
-   mysql      small     none</b>
-</pre>
-
+broker: container-services-manager
+   service          plan      access   orgs
+   mysql-operator   default   none
+```
 In order to enable the access, use the following command:
-
-<pre>
-<b>$ cf enable-service-access mysql</b>
-Enabling access to all plans of service mysql for all orgs as admin...
+```bash
+$ cf enable-service-access mysql-operator
+Enabling access to all plans of service mysql-operator for all orgs as admin...
 OK
 
-<b>$ cf marketplace</b>
-Getting services from marketplace in org ksm-dev / space dev as admin...
+$ cf marketplace
+Getting services from marketplace in org system / space dev as admin...
 OK
 
-service               plans                                                  description                                                                                                                                                                                                                           broker
-dokuwiki              default                                                DokuWiki is a standards-compliant, simple to use wiki optimized for creating documentation. It is targeted at developer teams, workgroups, and small companies. All data is stored in plain text files, so no database is required.   kubernetes-service-manager
-<b>mysql                 small, medium                                          Fast, reliable, scalable, and easy to use open-source relational database system.                                                                                                                                                     kubernetes-service-manager</b>
-</pre>
+service          plans     description                                                                         broker
+mysql-operator   default   A Helm chart for easy deployment of a MySQL cluster with MySQL operator.            container-services-manager
+```
  
 ## Creating an instance
 
 After enabling access to the markeplace offer, it's possible to provision a new instance.
 
 First let's list the cf and kubernetes services:
-<pre>
-<b>$ cf services</b>
+```bash
+$ cf services
 Getting services in org ksm-dev / space dev as admin...
 
 No services found
+```
 
 Now, let's create a new instance. We can also list the new cf and kubernetes services
+```bash
+$ cf create-service mysql-operator default mysql-op1
+Creating service instance mysql-op1 in org system / space dev as admin...
+OK
 
-<pre>
-<b>$ cf create-service mysql small mysql1</b> 
+Create in progress. Use 'cf services' or 'cf service mysql-op1' to check operation status.
 
-<b>$ cf services</b>
-Getting services in org ksm-dev / space dev as admin...
+$ cf services
+Getting services in org system / space dev as admin...
 
-name     service   plan    bound apps   last operation       broker
-<b>mysql1   mysql     small                create in progress   kubernetes-service-manager</b>
-</pre>
+name             service          plan      bound apps   last operation     broker                       upgrade available
+mysql-op1        mysql-operator   default                create succeeded   container-services-manager   no
+```
 
 ## Binding an app to mysql instance 
 
@@ -195,30 +191,30 @@ To do that:
 - Create a service key for the MySQL instance:
 
 <pre>
-<b>$ cf create-service-key mysql1 mysql1-servicekey</b>
+<b>$ cf create-service-key mysql-op mysql-servicekey</b>
 </pre>
 
 - Verify the hostname, user and password in the service key data
 
 <pre>
-<b>$ cf service-key mysql1 mysql1-servicekey</b>
-Getting key mysql1-servicekey for service instance mysql1 as admin...
+<b>$ cf service-key mysql-op mysql1-servicekey</b>
+Getting key mysql-servicekey for service instance mysql-op as admin...
 
 {
- "hostname": "some_ip_address",
- "jdbcUrl": "jdbc:mysql://some_ip_address/my_db?user=root\u0026password=some_password\u0026useSSL=false",
- "name": "k-y6id2qob-mysql",
- "password": "some_password",
+ "hostname": "10.10.11.11",
+ "jdbcUrl": "jdbc:mysql://34.67.50.44/mydb?user=root\u0026password=root\u0026useSSL=false",
+ "name": "k-ftwbah22-mysql-cluster-db",
+ "password": "root",
  "port": 3306,
- "uri": "mysql://root:some_password@some_ip_address:3306/my_db?reconnect=true",
+ "uri": "mysql://root:root@34.67.50.44:3306/mydb?reconnect=true",
  "username": "root"
 }
 </pre>
 
 - Connect to the MySQL database:
 
-<pre>
-<b>$ mysql -u root -p -h some_ip_address</b>
+```bash
+$ mysql -u root -p -h <hostname></b>
 Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 17700
@@ -231,11 +227,11 @@ affiliates. Other names may be trademarks of their respective
 owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-</pre>
+```
 
-- Select the my_db database:
+- Select the mydb database:
 <pre>
-<b>mysql> use my_db;</b>
+<b>mysql> use mydb;</b>
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 

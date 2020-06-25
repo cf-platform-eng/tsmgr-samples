@@ -9,7 +9,7 @@ replicas: 1
 rootPassword: ""
 appUser: ""
 appPassword: ""
-appDatabase: ""
+appDatabase: "mydb"
 
 podSpec:
 mysqlConf:
