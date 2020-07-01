@@ -10,4 +10,4 @@ For details on KSM installation and configuration, refer to the following docume
 ## Contents
 * [mysql](mysql) Contains an example of a single node MySQL deployment offered
 * [mysql-operator](mysql-operator) Contains an example of an operator managed database
-  - This example also describes [Patterns for Offering Operators in KSM](./mysql-operator/README.MD#patterns-for-offering-operators-in-ksm)
+  - This example also describes [Patterns for Offering Operators in KSM](./mysql-operator#patterns-for-offering-operators-in-ksm)
