@@ -8,38 +8,25 @@ This example includes a Helm chart for the Presslabs MySQL Operator, and a Helm 
 
 ## Prerequisites
 
-- PCF environment with KSM installed and configured.
-- ksm cli referred below is an alias configured to  `$KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD`. 
-If you want to create the same alias for your environment, add the following function to your .bash_profile, .profile or .bashrc files:
+- TAS environment with KSM installed and configured.
+- Connection setup for the `ksm` CLI to properly target an environment
 
 ``` 
-export KSM_PATH=<The path where your ksm.darwin is located>
-export KSM_SERVER=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
+export KSM_TARGET=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
 export KSM_USER=<change_by_your_ksm_user>
 export KSM_PASSWORD=<change_by_your_ksm_password>
-
-ksm ()
-{
-    if [ -n "$ZSH_VERSION" ]; then
-        emulate -L sh;
-    fi;
-    if [ "$1" == "" ]; then
-        $KSM_PATH/ksm.darwin --help;
-    else
-        $KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD;
-    fi
-}
+export KSM_INSECURE=true # if using a lab environment
 ```
 
-- Kubernetes cluster registered with KSM and set as default
+- Kubernetes [cluster registered with KSM](https://docs.pivotal.io/ksm/managing-clusters.html) and set as default
 ```bash
 ksm cluster register my-cluster-name my-cluster-creds-file.yaml
 ksm cluster set-default my-cluster-name
 ```
 
-## Options for Offering Operators in KSM
+## Patterns for Offering Operators in KSM
 
-1) You can install the operator manually into each cluster before offering the instance Helm chart in KSM.
+1) You can install (and upgrade) the operator manually into each cluster before offering the instance Helm chart in KSM.
     The operator must be configured to watch all namespaces in this approach. 
     ```bash
     helm install mysql-operator mysql-operator
@@ -96,15 +83,15 @@ into each cluster where Developers may provision `mysql-cluster` instances.
    
     The instructions below follow the `Cluster` scoped pattern. 
 
-## Publishing the Marketplace Offer
+## Saving the Marketplace Offer
 
-To publish the marketplace offer:
+To save the marketplace offer:
 
 ```bash
 $ ksm offer save ksm mysql-operator-0.1.1+master.tgz mysql-cluster-0.2.0.tgz
 ```
 
-The command publishes MySQL Operator offer on PCF. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
+The command saves MySQL Operator offer on TAS. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
 
 The current offers can be listed as following:
 <pre>
@@ -117,7 +104,7 @@ mysql-operator  	mysql-cluster  	0.2.0       	[default]
 ## Enabling CF access 
 
 The marketplace offer access is not available by default via cf command. You can verify that by calling the follow commands. 
-Notice that mysql is not available at marketplace, even though it is listed by service-access (with access=none):
+Notice that mysql is not available in the marketplace, even though it is listed by service-access (with access=none):
 
 ```bash
 $ cf marketplace
@@ -131,6 +118,7 @@ broker: container-services-manager
    service          plan      access   orgs
    mysql-operator   default   none
 ```
+
 In order to enable the access, use the following command:
 ```bash
 $ cf enable-service-access mysql-operator
@@ -147,7 +135,7 @@ mysql-operator   default   A Helm chart for easy deployment of a MySQL cluster w
  
 ## Creating an instance
 
-After enabling access to the markeplace offer, it's possible to provision a new instance.
+After enabling access to the marketplace offer, it's possible to provision a new instance.
 
 First let's list the cf and kubernetes services:
 ```bash
@@ -177,9 +165,9 @@ mysql-op1        mysql-operator   default                create succeeded   cont
 Please follow the instructions at https://github.com/cloudfoundry-samples/spring-music to build, deploy and bind the 
 spring-music app to mysql database.
  
-You should visualize the bindind details in spring-music app after binding process as following:
+You should visualize the binding details in spring-music app after binding process as following:
 
-![After binding](./app-sample/after-binding.png)
+![After binding](../mysql/app-sample/after-binding.png)
 
 ## [Optional] See the data in MySQL instance
 

@@ -4,46 +4,33 @@
 
 ## Introduction
 
-This chart bootstraps a single node MySQL deployment on a PCF (Pivotal Cloud Foundry).
+This chart bootstraps a single node MySQL deployment on a TAS (Tanzu Application Service).
 
 ## Prerequisites
 
-- PCF environment with KSM installed and configured.
-- ksm cli referred below is an alias configured to  `$KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD`. 
-If you want to create the same alias for your environment, add the following function to your .bash_profile, .profile or .bashrc files:
+- TAS environment with KSM installed and configured.
+- Connection setup for the `ksm` CLI to properly target an environment
 
 ``` 
-export KSM_PATH=<The path where your ksm.darwin is located>
-export KSM_SERVER=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
+export KSM_TARGET=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
 export KSM_USER=<change_by_your_ksm_user>
 export KSM_PASSWORD=<change_by_your_ksm_password>
-
-ksm ()
-{
-    if [ -n "$ZSH_VERSION" ]; then
-        emulate -L sh;
-    fi;
-    if [ "$1" == "" ]; then
-        $KSM_PATH/ksm.darwin --help;
-    else
-        $KSM_PATH/ksm.darwin "$@" -k -t $KSM_SERVER -u $KSM_USER -p $KSM_PASSWORD;
-    fi
-}
+export KSM_INSECURE=true # if using a lab environment
 ```
 
-- Kubernetes cluster registered with KSM and set as default
+- Kubernetes [cluster registered with KSM](https://docs.pivotal.io/ksm/managing-clusters.html) and set as default
 ```bash
 ksm cluster register my-cluster-name my-cluster-creds-file.yaml
 ksm cluster set-default my-cluster-name
 ```
 
-## Publishing the Marketplace Offer
+## Saving the Marketplace Offer
 
-To publish the marketplace offer:
+To save the marketplace offer:
 
 <pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.3.0.tgz</b></pre>
 
-The command publishes MySQL offer on PCF. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
+The command saves MySQL offer on TAS. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
 
 Alternatively a &lt;ksm&gt;.yaml file can be defined in the ksm directory with a different marketplace name and used as input for `ksm offer save`:
 
@@ -72,7 +59,7 @@ mysql           	mysql          	1.3.0  	[medium small]
 ## Enabling CF access 
 
 The marketplace offer access is not available by default via cf command. You can verify that by calling the follow commands. 
-Notice that mysql is not available at marketplace, even though it is listed by service-access (with access=none):
+Notice that mysql is not available in the marketplace, even though it is listed by service-access (with access=none):
 
 <pre>
 <b>$ cf marketplace</b>
@@ -108,7 +95,7 @@ dokuwiki              default                                                Dok
  
 ## Creating an instance
 
-After enabling access to the markeplace offer, it's possible to provision a new instance.
+After enabling access to the marketplace offer, it's possible to provision a new instance.
 
 First let's list the cf and kubernetes services:
 <pre>
@@ -134,7 +121,7 @@ name     service   plan    bound apps   last operation       broker
 Please follow the instructions at https://github.com/cloudfoundry-samples/spring-music to build, deploy and bind the 
 spring-music app to mysql database.
  
-You should visualize the bindind details in spring-music app after binding process as following:
+You should visualize the binding details in spring-music app after binding process as following:
 
 ![After binding](./app-sample/after-binding.png)
 
