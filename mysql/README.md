@@ -103,6 +103,7 @@ First let's list the cf and kubernetes services:
 Getting services in org ksm-dev / space dev as admin...
 
 No services found
+</pre>
 
 Now, let's create a new instance. We can also list the new cf and kubernetes services
 
