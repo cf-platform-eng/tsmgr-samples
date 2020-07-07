@@ -179,13 +179,13 @@ To do that:
 - Create a service key for the MySQL instance:
 
 <pre>
-<b>$ cf create-service-key mysql-op mysql-servicekey</b>
+<b>$ cf create-service-key mysql-op1 mysql-servicekey</b>
 </pre>
 
 - Verify the hostname, user and password in the service key data
 
 <pre>
-<b>$ cf service-key mysql-op mysql1-servicekey</b>
+<b>$ cf service-key mysql-op1 mysql-servicekey</b>
 Getting key mysql-servicekey for service instance mysql-op as admin...
 
 {
