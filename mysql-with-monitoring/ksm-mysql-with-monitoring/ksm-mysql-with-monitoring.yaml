@@ -1,0 +1,12 @@
+marketplace-name: mysql-with-monitoring
+charts:
+  - chart: mysql
+    version: 1.6.6
+    offered: true
+    overrideValuesFile: override-mysql.yaml
+    scope: namespace
+  - chart: prometheus
+    version: 11.9.0
+    offered: false
+    overrideValuesFile: override-prometheus.yaml
+    scope: namespace
