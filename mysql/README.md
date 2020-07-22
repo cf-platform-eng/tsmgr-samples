@@ -28,7 +28,7 @@ ksm cluster set-default my-cluster-name
 
 To save the marketplace offer:
 
-<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.3.0.tgz</b></pre>
+<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.6.6.tgz</b></pre>
 
 The command saves MySQL offer on TAS. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
 
@@ -41,10 +41,10 @@ charts:
   - chart: mysql
     offered: true
     scope: namespace
-    version: 1.3.0
+    version: 1.6.6
 ```
 
-<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.3.0.tgz
+<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.6.6.tgz
 </b></pre>
 
 The current offers can be listed as following:
@@ -53,7 +53,7 @@ The current offers can be listed as following:
 <b>$ ksm offer list</b>
 MARKETPLACE NAME	INCLUDED CHARTS	VERSION	PLANS
 dokuwiki        	dokuwiki       	5.1.2  	[default]
-mysql           	mysql          	1.3.0  	[medium small]
+mysql           	mysql          	1.6.6  	[medium small]
 </pre>
 
 ## Enabling CF access 
