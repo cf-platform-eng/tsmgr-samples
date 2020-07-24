@@ -1,7 +1,8 @@
 alertmanager:
   enabled: false
 server:
-  image: dev.registry.pivotal.io/container-services-manager-ci/prom/prometheus
+  image:
+    repository: dev.registry.pivotal.io/container-services-manager-ci/prom/prometheus
   persistentVolume:
     enabled: false
 kubeStateMetrics:
