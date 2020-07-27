@@ -3,6 +3,10 @@ alertmanager:
 server:
   persistentVolume:
     enabled: false
+  image:
+    repository: dev.registry.pivotal.io/container-services-manager-ci/prom/prometheus
+imagePullSecrets:
+  - name: registry-secret
 kubeStateMetrics:
   enabled: false
 pushgateway:
