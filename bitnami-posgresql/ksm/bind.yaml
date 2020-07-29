@@ -1,0 +1,13 @@
+template: |
+  local filterfunc(j) = std.length(std.findSubstr("postgresql", j.name)) > 0;
+  local s1 = std.filter(filterfunc, $.services);
+  {
+    hostname: s1[0].status.loadBalancer.ingress[0].ip,
+    name: s1[0].name,
+    jdbcUrl: "jdbc:postgresql://" + self.hostname + ":" + self.port + "/my_db?user=" + self.username + "&password=" + self.password + "&useSSL=false",
+    uri: "postgresql://" + self.username + ":" + self.password + "@" + self.hostname + ":" + self.port + "/my_db?reconnect=true",
+    password: $.secrets[0].data['postgresql-password'],
+    port: 5432,
+    username: "postgres"
+  }
+

@@ -1,0 +1,3 @@
+service:
+  type: LoadBalancer
+postgresqlDatabase: my_db
