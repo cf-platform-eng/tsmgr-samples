@@ -1,7 +1,7 @@
 marketplace-name: minio-custom
 charts:
 - chart: minio
-  version: 5.0.11
+  version: 3.4.7
   offered: true
   overrideValuesFile: overrides.yaml
   scope: namespace

@@ -1,0 +1,4 @@
+defaultBuckets: "bucket-{{ .Release.Namespace }}"
+
+service:
+  type: LoadBalancer
