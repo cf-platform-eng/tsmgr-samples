@@ -4,7 +4,7 @@ server:
   persistentVolume:
     enabled: false
   image:
-    repository: dev.registry.pivotal.io/container-services-manager-ci/prom/prometheus
+    repository: dev.registry.pivotal.io/tanzu-service-manager-ci/prom/prometheus
 imagePullSecrets:
   - name: registry-secret
 kubeStateMetrics:

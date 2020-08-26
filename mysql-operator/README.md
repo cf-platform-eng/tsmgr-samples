@@ -114,7 +114,7 @@ service               plans                                                  des
 
 $ cf service-access
 Getting service access as admin...
-broker: container-services-manager
+broker: tanzu-service-manager
    service          plan      access   orgs
    mysql-operator   default   none
 ```
@@ -130,7 +130,7 @@ Getting services from marketplace in org system / space dev as admin...
 OK
 
 service          plans     description                                                                         broker
-mysql-operator   default   A Helm chart for easy deployment of a MySQL cluster with MySQL operator.            container-services-manager
+mysql-operator   default   A Helm chart for easy deployment of a MySQL cluster with MySQL operator.            tanzu-service-manager
 ```
  
 ## Creating an instance
@@ -157,7 +157,7 @@ $ cf services
 Getting services in org system / space dev as admin...
 
 name             service          plan      bound apps   last operation     broker                       upgrade available
-mysql-op1        mysql-operator   default                create succeeded   container-services-manager   no
+mysql-op1        mysql-operator   default                create succeeded   tanzu-service-manager   no
 ```
 
 ## Binding an app to mysql instance 
