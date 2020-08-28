@@ -8,30 +8,30 @@ This example includes a Helm chart for the Presslabs MySQL Operator, and a Helm 
 
 ## Prerequisites
 
-- TAS environment with KSM installed and configured.
-- Connection setup for the `ksm` CLI to properly target an environment
+- TAS environment with Tanzu Service Manager installed and configured.
+- Connection setup for the `tsmgr` CLI to properly target an environment
 
 ``` 
-export KSM_TARGET=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
-export KSM_USER=<change_by_your_ksm_user>
-export KSM_PASSWORD=<change_by_your_ksm_password>
-export KSM_INSECURE=true # if using a lab environment
+export TSMGR_TARGET=http://<change_by_your_tsmgr_server>:<change_by_your_tsmgr_server_port>
+export TSMGR_USER=<change_by_your_tsmgr_user>
+export TSMGR_PASSWORD=<change_by_your_tsmgr_password>
+export TSMGR_INSECURE=true # if using a lab environment
 ```
 
-- Kubernetes [cluster registered with KSM](https://docs.pivotal.io/ksm/managing-clusters.html) and set as default
+- Kubernetes [cluster registered with TSMGR](https://docs.pivotal.io/ksm/managing-clusters.html) and set as default
 ```bash
-ksm cluster register my-cluster-name my-cluster-creds-file.yaml
-ksm cluster set-default my-cluster-name
+tsmgr cluster register my-cluster-name my-cluster-creds-file.yaml
+tsmgr cluster set-default my-cluster-name
 ```
 
-## Patterns for Offering Operators in KSM
+## Patterns for Offering Operators in Tanzu Service Manager
 
-1) You can install (and upgrade) the operator manually into each cluster before offering the instance Helm chart in KSM.
+1) You can install (and upgrade) the operator manually into each cluster before offering the instance Helm chart in TSMGR.
     The operator must be configured to watch all namespaces in this approach. 
     ```bash
     helm install mysql-operator mysql-operator
     ```
-    In this case, the offer `ksm.yaml` only needs to include the `mysql-cluster` instance Helm chart:
+    In this case, the offer `tsmgr.yaml` only needs to include the `mysql-cluster` instance Helm chart:
     ```
     marketplace-name: mysql-instance-only
     charts:
@@ -42,10 +42,10 @@ ksm cluster set-default my-cluster-name
     ```
     To offer the instance Helm chart:
     ```bash
-    ksm offer save ksm/ mysql-cluster-0.2.0.tgz
+    tsmgr offer save tsmgr/ mysql-cluster-0.2.0.tgz
     ```
    
-1) (Recommended) You can offer both the `mysql-operator` and `mysql-cluster` Helm charts with KSM. 
+1) (Recommended) You can offer both the `mysql-operator` and `mysql-cluster` Helm charts with TSMGR. 
 This is recommended because the Platform Operator does not need to manually install the `mysql-operator` Helm chart
 into each cluster where Developers may provision `mysql-cluster` instances. 
     
@@ -88,14 +88,14 @@ into each cluster where Developers may provision `mysql-cluster` instances.
 To save the marketplace offer:
 
 ```bash
-$ ksm offer save ksm mysql-operator-0.1.1+master.tgz mysql-cluster-0.2.0.tgz
+$ tsmgr offer save tsmgr mysql-operator-0.1.1+master.tgz mysql-cluster-0.2.0.tgz
 ```
 
-The command saves MySQL Operator offer on TAS. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
+The command saves MySQL Operator offer on TAS. The marketplace name and version will match the name and version defined in `tsmgr.yaml` file.
 
 The current offers can be listed as following:
 <pre>
-<b>$ ksm offer list</b>
+<b>$ tsmgr offer list</b>
 MARKETPLACE NAME	INCLUDED CHARTS	VERSION	        PLANS
 mysql-operator  	mysql-cluster  	0.2.0       	[default]
 -               	mysql-operator 	0.1.1+master
@@ -108,7 +108,7 @@ Notice that mysql is not available in the marketplace, even though it is listed 
 
 ```bash
 $ cf marketplace
-Getting services from marketplace in org ksm-dev / space dev as admin...
+Getting services from marketplace in org tsmgr-dev / space dev as admin...
 OK
 service               plans                                                  description   
 
@@ -140,7 +140,7 @@ After enabling access to the marketplace offer, it's possible to provision a new
 First let's list the cf and kubernetes services:
 ```bash
 $ cf services
-Getting services in org ksm-dev / space dev as admin...
+Getting services in org tsmgr-dev / space dev as admin...
 
 No services found
 ```
@@ -270,14 +270,14 @@ Database changed
 To remove the marketplace offer:
 
 <pre>
-<b>ksm offer delete mysql</b>
+<b>tsmgr offer delete mysql</b>
 </pre>
 
 ## External References
 
 For more details and customizations for MySQL chart, see https://github.com/helm/charts/tree/master/stable/mysql
 
-For more details on ksm usage see http://to-do-link
+For more details on tsmgr usage see https://docs.pivotal.io/ksm/using.html
 
 For other Pivotal documents see https://docs.pivotal.io/
 
