@@ -56,7 +56,7 @@ spec:
       annotations:
         message: Kubernetes API server client '{{`{{ $labels.job }}`}}/{{`{{ $labels.instance }}`}}' is experiencing {{`{{ printf "%0.0f" $value }}`}} errors / second.
         runbook_url: {{ .Values.defaultRules.runbookUrl }}alert-name-kubeclienterrors
-      expr: sum(rate(ksm_scrape_error_total{job="kube-state-metrics"}[5m])) by (instance, job) > 0.1
+      expr: sum(rate(tsmgr_scrape_error_total{job="kube-state-metrics"}[5m])) by (instance, job) > 0.1
       for: 15m
       labels:
         severity: warning

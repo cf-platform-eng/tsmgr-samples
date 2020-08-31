@@ -8,33 +8,33 @@ This chart bootstraps a single node MySQL deployment on a TAS (Tanzu Application
 
 ## Prerequisites
 
-- TAS environment with KSM installed and configured.
-- Connection setup for the `ksm` CLI to properly target an environment
+- TAS environment with Tanzu Service Manager installed and configured.
+- Connection setup for the `tsmgr` CLI to properly target an environment
 
 ``` 
-export KSM_TARGET=http://<change_by_your_ksm_server>:<change_by_your_ksm_server_port>
-export KSM_USER=<change_by_your_ksm_user>
-export KSM_PASSWORD=<change_by_your_ksm_password>
-export KSM_INSECURE=true # if using a lab environment
+export TSMGR_TARGET=http://<change_by_your_tsmgr_server>:<change_by_your_tsmgr_server_port>
+export TSMGR_USER=<change_by_your_tsmgr_user>
+export TSMGR_PASSWORD=<change_by_your_tsmgr_password>
+export TSMGR_INSECURE=true # if using a lab environment
 ```
 
-- Kubernetes [cluster registered with KSM](https://docs.pivotal.io/ksm/managing-clusters.html) and set as default
+- Kubernetes [cluster registered with TSMGR](https://docs.pivotal.io/ksm/managing-clusters.html) and set as default
 ```bash
-ksm cluster register my-cluster-name my-cluster-creds-file.yaml
-ksm cluster set-default my-cluster-name
+tsmgr cluster register my-cluster-name my-cluster-creds-file.yaml
+tsmgr cluster set-default my-cluster-name
 ```
 
 ## Saving the Marketplace Offer
 
 To save the marketplace offer:
 
-<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.6.6.tgz</b></pre>
+<pre><b>$ tsmgr offer save mysql/tsmgr mysql/mysql-1.6.6.tgz</b></pre>
 
-The command saves MySQL offer on TAS. The marketplace name and version will match the name and version defined in `ksm.yaml` file.
+The command saves MySQL offer on TAS. The marketplace name and version will match the name and version defined in `tsmgr.yaml` file.
 
-Alternatively a &lt;ksm&gt;.yaml file can be defined in the ksm directory with a different marketplace name and used as input for `ksm offer save`:
+Alternatively a &lt;tsmgr&gt;.yaml file can be defined in the tsmgr directory with a different marketplace name and used as input for `tsmgr offer save`:
 
-__mysql/ksm/custom-mysql.yaml__ sample
+__mysql/tsmgr/custom-mysql.yaml__ sample
 ```
 marketplace-name: custom-mysql
 charts:
@@ -44,13 +44,13 @@ charts:
     version: 1.6.6
 ```
 
-<pre><b>$ ksm offer save mysql/ksm mysql/mysql-1.6.6.tgz
+<pre><b>$ tsmgr offer save mysql/tsmgr mysql/mysql-1.6.6.tgz
 </b></pre>
 
 The current offers can be listed as following:
 
 <pre>
-<b>$ ksm offer list</b>
+<b>$ tsmgr offer list</b>
 MARKETPLACE NAME	INCLUDED CHARTS	VERSION	PLANS
 dokuwiki        	dokuwiki       	5.1.2  	[default]
 mysql           	mysql          	1.6.6  	[medium small]
@@ -63,7 +63,7 @@ Notice that mysql is not available in the marketplace, even though it is listed 
 
 <pre>
 <b>$ cf marketplace</b>
-Getting services from marketplace in org ksm-dev / space dev as admin...
+Getting services from marketplace in org tsmgr-dev / space dev as admin...
 OK
 service               plans                                                  description                                                                                                                                                                                                                           broker
 dokuwiki              default                                                DokuWiki is a standards-compliant, simple to use wiki optimized for creating documentation. It is targeted at developer teams, workgroups, and small companies. All data is stored in plain text files, so no database is required.   kubernetes-service-manager
@@ -85,7 +85,7 @@ Enabling access to all plans of service mysql for all orgs as admin...
 OK
 
 <b>$ cf marketplace</b>
-Getting services from marketplace in org ksm-dev / space dev as admin...
+Getting services from marketplace in org tsmgr-dev / space dev as admin...
 OK
 
 service               plans                                                  description                                                                                                                                                                                                                           broker
@@ -100,7 +100,7 @@ After enabling access to the marketplace offer, it's possible to provision a new
 First let's list the cf and kubernetes services:
 <pre>
 <b>$ cf services</b>
-Getting services in org ksm-dev / space dev as admin...
+Getting services in org tsmgr-dev / space dev as admin...
 
 No services found
 
@@ -110,7 +110,7 @@ Now, let's create a new instance. We can also list the new cf and kubernetes ser
 <b>$ cf create-service mysql small mysql1</b> 
 
 <b>$ cf services</b>
-Getting services in org ksm-dev / space dev as admin...
+Getting services in org tsmgr-dev / space dev as admin...
 
 name     service   plan    bound apps   last operation       broker
 <b>mysql1   mysql     small                create in progress   kubernetes-service-manager</b>
@@ -226,14 +226,14 @@ Database changed
 To remove the marketplace offer:
 
 <pre>
-<b>ksm offer delete mysql</b>
+<b>tsmgr offer delete mysql</b>
 </pre>
 
 ## External References
 
 For more details and customizations for MySQL chart, see https://github.com/helm/charts/tree/master/stable/mysql
 
-For more details on ksm usage see http://to-do-link
+For more details on tsmgr usage see https://docs.pivotal.io/ksm/using.html
 
 For other Pivotal documents see https://docs.pivotal.io/
 
