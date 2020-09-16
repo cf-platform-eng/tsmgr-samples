@@ -24,19 +24,19 @@ tsmgr cluster register my-cluster-name my-cluster-creds-file.yaml
 tsmgr cluster set-default my-cluster-name
 ```
 
-## Saving the Marketplace Offer
+## Saving the Offer
 
-To save the marketplace offer:
+To save the offer:
 
 <pre><b>$ tsmgr offer save mysql/tsmgr mysql/mysql-1.6.6.tgz</b></pre>
 
-The command saves MySQL offer on TAS. The marketplace name and version will match the name and version defined in `tsmgr.yaml` file.
+The command saves MySQL offer on TAS. The offer name and version will match the name and version defined in `tsmgr.yaml` file.
 
-Alternatively a &lt;tsmgr&gt;.yaml file can be defined in the tsmgr directory with a different marketplace name and used as input for `tsmgr offer save`:
+Alternatively a &lt;tsmgr&gt;.yaml file can be defined in the tsmgr directory with a different offer name and used as input for `tsmgr offer save`:
 
 __mysql/tsmgr/custom-mysql.yaml__ sample
 ```
-marketplace-name: custom-mysql
+offer-name: custom-mysql
 charts:
   - chart: mysql
     offered: true
@@ -51,14 +51,14 @@ The current offers can be listed as following:
 
 <pre>
 <b>$ tsmgr offer list</b>
-MARKETPLACE NAME	INCLUDED CHARTS	VERSION	PLANS
+OFFER NAME	INCLUDED CHARTS	VERSION	PLANS
 dokuwiki        	dokuwiki       	5.1.2  	[default]
 mysql           	mysql          	1.6.6  	[medium small]
 </pre>
 
 ## Enabling CF access 
 
-The marketplace offer access is not available by default via cf command. You can verify that by calling the follow commands. 
+The offer access is not available by default in cf. You can verify that by calling the follow commands.
 Notice that mysql is not available in the marketplace, even though it is listed by service-access (with access=none):
 
 <pre>
@@ -95,7 +95,7 @@ dokuwiki              default                                                Dok
  
 ## Creating an instance
 
-After enabling access to the marketplace offer, it's possible to provision a new instance.
+After enabling access to the offer, it's possible to provision a new instance.
 
 First let's list the cf and kubernetes services:
 <pre>
@@ -221,9 +221,9 @@ Database changed
 29 rows in set (0.05 sec)
 </pre>
 
-## Deleting the marketplace offer
+## Deleting the offer
 
-To remove the marketplace offer:
+To remove the offer:
 
 <pre>
 <b>tsmgr offer delete mysql</b>

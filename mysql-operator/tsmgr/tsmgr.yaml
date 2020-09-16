@@ -1,4 +1,4 @@
-marketplace-name: mysql-operator
+offer-name: mysql-operator
 charts:
   - chart: mysql-operator
     version: 0.1.1+master

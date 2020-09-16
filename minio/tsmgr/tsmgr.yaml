@@ -1,4 +1,4 @@
-marketplace-name: minio-custom
+offer-name: minio-custom
 charts:
 - chart: minio
   version: 3.4.7
