@@ -4,7 +4,7 @@ Tanzu Service Manager Sample Charts
 This project contains samples for using Tanzu Service Manager (TSMGR) for Pivotal Platform. 
 For details on Tanzu Service Manager installation and configuration, refer to the following document:
 
-[Tanzu Service Manager Documentation](https://docs.pivotal.io/ksm)
+[Tanzu Service Manager Documentation](https://docs.pivotal.io/tanzu-service-manager)
 
 ## Contents
 * [mysql](mysql) Contains an example of a single node MySQL deployment offered

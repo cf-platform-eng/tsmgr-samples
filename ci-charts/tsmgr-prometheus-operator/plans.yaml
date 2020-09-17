@@ -2,7 +2,7 @@
 # In cf marketplace, each service has a set of plans that developers can provision. A plan is a template for service 
 #    instances. For example, different plans might represent a large or a small instance of a database. 
 # NOTE: Refer to the "(Optional) Define Plans Configuration" section in the "Preparing a Service Offering" document 
-#     at https://docs.pivotal.io/ksm if you need further information.
+#     at https://docs.pivotal.io/tanzu-service-manager if you need further information.
 - name: "small"
   description: "default (small) plan for the offer"
   file: "small.yaml"
