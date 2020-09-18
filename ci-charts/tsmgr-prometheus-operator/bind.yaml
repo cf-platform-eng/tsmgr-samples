@@ -6,7 +6,7 @@
 # The example below shows all available information, so you can use that to compose your own template.
 #
 # NOTE: Refer to the "(Optional) Create Binding Template for App Consumption" section in the "Preparing a Service Offering" document 
-#     at https://docs.pivotal.io/ksm if you need further information.
+#     at https://docs.pivotal.io/tanzu-service-manager if you need further information.
 template: |
   {
     # ingresses: $.ingresses, # should be configured only if ingresses are available
