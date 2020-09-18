@@ -2,7 +2,7 @@
 # Tanzu Service Manager enables you to offer multiple Helm charts in a single service named offering.
 # NOTE: Refer to the "(Optional) Offer Multiple Charts in a Single Offering" section in the "Preparing a Service Offering" document 
 #     at https://docs.pivotal.io/tanzu-service-manager if you need further information.
-marketplace-name: prometheus-operator # the offer name to show as service name in cf marketplace. Default is the chart name if there is no tsmgr.yaml file
+offer-name: prometheus-operator # the offer name to show as service name in cf marketplace. Default is the chart name if there is no tsmgr.yaml file
 charts:				  # array of charts that make up the offer. charts will be installed in the order listed
 - chart: prometheus-operator    # must match the chart name in the Chart.yaml file of chart tgz provided
   version: 8.12.0     # must match the chart version in the Chart.yaml file of chart tgz provided

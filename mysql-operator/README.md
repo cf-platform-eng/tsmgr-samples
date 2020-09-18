@@ -33,7 +33,7 @@ tsmgr cluster set-default my-cluster-name
     ```
     In this case, the offer `tsmgr.yaml` only needs to include the `mysql-cluster` instance Helm chart:
     ```
-    marketplace-name: mysql-instance-only
+    offer-name: mysql-instance-only
     charts:
       - chart: mysql-cluster
         version: 0.2.0
@@ -54,7 +54,7 @@ into each cluster where Developers may provision `mysql-cluster` instances.
     `Namespace` scoped means the `mysql-operator` chart will be installed in every namespace along with the `mysql-cluster` instance.
     
     ```yaml
-    marketplace-name: mysql-operator
+    offer-name: mysql-operator
     charts:
       - chart: mysql-operator
         version: 0.1.1+master
@@ -69,7 +69,7 @@ into each cluster where Developers may provision `mysql-cluster` instances.
      `Cluster` scoped means the `mysql-operator` chart will be installed once in the cluster and watch all namespaces.
 
     ```yaml
-    marketplace-name: mysql-operator
+    offer-name: mysql-operator
     charts:
       - chart: mysql-operator
         version: 0.1.1+master
@@ -83,27 +83,27 @@ into each cluster where Developers may provision `mysql-cluster` instances.
    
     The instructions below follow the `Cluster` scoped pattern. 
 
-## Saving the Marketplace Offer
+## Saving the Offer
 
-To save the marketplace offer:
+To save the offer:
 
 ```bash
 $ tsmgr offer save tsmgr mysql-operator-0.1.1+master.tgz mysql-cluster-0.2.0.tgz
 ```
 
-The command saves MySQL Operator offer on TAS. The marketplace name and version will match the name and version defined in `tsmgr.yaml` file.
+The command saves MySQL Operator offer on TAS. The offer name and version will match the name and version defined in `tsmgr.yaml` file.
 
 The current offers can be listed as following:
 <pre>
 <b>$ tsmgr offer list</b>
-MARKETPLACE NAME	INCLUDED CHARTS	VERSION	        PLANS
+OFFER NAME	INCLUDED CHARTS	VERSION	        PLANS
 mysql-operator  	mysql-cluster  	0.2.0       	[default]
 -               	mysql-operator 	0.1.1+master
 </pre>
 
 ## Enabling CF access 
 
-The marketplace offer access is not available by default via cf command. You can verify that by calling the follow commands. 
+The offer access is not available by default in cf. You can verify that by calling the follow commands. 
 Notice that mysql is not available in the marketplace, even though it is listed by service-access (with access=none):
 
 ```bash
@@ -135,7 +135,7 @@ mysql-operator   default   A Helm chart for easy deployment of a MySQL cluster w
  
 ## Creating an instance
 
-After enabling access to the marketplace offer, it's possible to provision a new instance.
+After enabling access to the offer in cf, it's possible to provision a new instance.
 
 First let's list the cf and kubernetes services:
 ```bash
@@ -265,9 +265,9 @@ Database changed
 29 rows in set (0.05 sec)
 </pre>
 
-## Deleting the marketplace offer
+## Deleting the offer
 
-To remove the marketplace offer:
+To remove the offer:
 
 <pre>
 <b>tsmgr offer delete mysql</b>

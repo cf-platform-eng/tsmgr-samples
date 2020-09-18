@@ -1,4 +1,4 @@
-marketplace-name: postgresql
+offer-name: postgresql
 charts:
   - chart: postgresql
     version: 9.1.1

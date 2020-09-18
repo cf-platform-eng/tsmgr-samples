@@ -1,4 +1,4 @@
-marketplace-name: mysql-operator-combined
+offer-name: mysql-operator-combined
 charts:
   - chart: mysql-combined
     version: 0.3.2
