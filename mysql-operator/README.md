@@ -13,8 +13,7 @@ This example includes a Helm chart for the Presslabs MySQL Operator, and a Helm 
 
 ``` 
 export TSMGR_TARGET=http://<change_by_your_tsmgr_server>:<change_by_your_tsmgr_server_port>
-export TSMGR_USER=<change_by_your_tsmgr_user>
-export TSMGR_PASSWORD=<change_by_your_tsmgr_password>
+export TSMGR_TOKEN=<change_by_your_tsmgr_kubernetes_token>
 export TSMGR_INSECURE=true # if using a lab environment
 ```
 
