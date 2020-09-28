@@ -1,0 +1,3 @@
+master:
+  service:
+    type: LoadBalancer

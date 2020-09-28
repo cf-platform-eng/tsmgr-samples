@@ -1,0 +1,7 @@
+offer-name: redis
+charts:
+  - chart: redis
+    version: 10.6.13
+    offered: true
+    overrideValuesFile: override-redis.yaml
+    scope: namespace
