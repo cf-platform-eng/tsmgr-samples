@@ -1,5 +1,5 @@
 # The bind.yaml is optional.
-# Apps running in Pivotal Application Service gain access to bound service instances through an 
+# Apps running in Tanzu Application Service gain access to bound service instances through an
 #     environment variable named VCAP_SERVICES consisting of a credentials map.
 # Create a binding template with desired bind format for the chart to be exposed. 
 #

@@ -278,5 +278,5 @@ For more details and customizations for MySQL chart, see https://github.com/helm
 
 For more details on tsmgr usage see https://docs.pivotal.io/tanzu-service-manager/using.html
 
-For other Pivotal documents see https://docs.pivotal.io/
+For other Tanzu documents see https://docs.pivotal.io/
 
