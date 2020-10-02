@@ -1,7 +1,7 @@
 offer-name: mysql
 charts:
   - chart: mysql
-    version: 1.6.6
+    version: 6.14.10
     offered: true
     overrideValuesFile: override-mysql.yaml
     scope: namespace

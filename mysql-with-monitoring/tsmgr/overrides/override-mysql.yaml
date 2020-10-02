@@ -1,4 +1,8 @@
 service:
   type: LoadBalancer
-mysqlDatabase: my_db
-mysqlRootPassword: iwJC0j56Cb
+replication:
+  enabled: false
+db:
+  name: my_db
+slave:
+  replicas: 0

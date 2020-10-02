@@ -1,10 +1,8 @@
 # MySQL
-
-[MySQL](https://MySQL.org) is one of the most popular database servers in the world. Notable users include Wikipedia, Facebook and Google.
-
 ## Introduction
 
-This chart bootstraps a single node MySQL deployment on a TAS (Tanzu Application Service).
+This chart bootstraps a single node MySQL deployment on a TAS (Tanzu Application Service)
+using the [Bitnami MySQL chart](https://github.com/bitnami/charts/tree/master/bitnami/mysql)
 
 ## Prerequisites
 
@@ -27,7 +25,7 @@ tsmgr cluster set-default my-cluster-name
 
 To save the offer:
 
-<pre><b>$ tsmgr offer save mysql/tsmgr mysql/mysql-1.6.6.tgz</b></pre>
+<pre><b>$ tsmgr offer save mysql/tsmgr mysql/mysql-6.14.10.tgz</b></pre>
 
 The command saves MySQL offer on TAS. The offer name and version will match the name and version defined in `tsmgr.yaml` file.
 
@@ -40,10 +38,10 @@ charts:
   - chart: mysql
     offered: true
     scope: namespace
-    version: 1.6.6
+    version: 6.14.10
 ```
 
-<pre><b>$ tsmgr offer save mysql/tsmgr mysql/mysql-1.6.6.tgz
+<pre><b>$ tsmgr offer save mysql/tsmgr mysql/mysql-6.14.10.tgz
 </b></pre>
 
 The current offers can be listed as following:
@@ -51,8 +49,8 @@ The current offers can be listed as following:
 <pre>
 <b>$ tsmgr offer list</b>
 OFFER NAME	INCLUDED CHARTS	VERSION	PLANS
-dokuwiki        	dokuwiki       	5.1.2  	[default]
-mysql           	mysql          	1.6.6  	[medium small]
+dokuwiki        	dokuwiki       	5.1.2  	    [default]
+mysql           	mysql          	6.14.10  	[medium small]
 </pre>
 
 ## Enabling CF access 
