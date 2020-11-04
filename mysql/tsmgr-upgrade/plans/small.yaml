@@ -1,0 +1,5 @@
+master:
+  resources:
+    requests:
+      memory: 125Mi
+      cpu: 75m

@@ -1,0 +1,8 @@
+service:
+  type: LoadBalancer
+replication:
+  enabled: false
+db:
+  name: my_db
+slave:
+  replicas: 0
